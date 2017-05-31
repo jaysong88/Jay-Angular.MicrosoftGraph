@@ -14,21 +14,13 @@ import {Router, RouterLink} from '@angular/router';
               <a class="mdl-navigation__link" [routerLink]="['/calendar']">Calendars</a>
               <a class="mdl-navigation__link" [routerLink]="['/contact']">Contacts</a>
               <a class="mdl-navigation__link" [routerLink]="['/sharepoint']">SharePoint</a>
+              <a class="mdl-navigation__link" [routerLink]="['/mail']">Mail</a>
             </nav>
         </div>
 
         <router-outlet></router-outlet>
   `,
-  styles: [`
-         div { 
-                background-color:#EFEFEF;
-                margin-bottom:15px;
-                padding:15px;
-                border:1px solid #DDD;
-                box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.3);
-                border-radius:3px;
-            }
-    `]
+  styleUrls: [ './styles/main.css' ]
 })
 export class AppComponent  {
     constructor ( private _msalService: MSALService) {

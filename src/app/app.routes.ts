@@ -4,13 +4,15 @@ import { UserComponent } from './user.component';
 import { CalendarComponent } from './calendar.component';
 import { ContactComponent } from './contact.component';
 import { SharePointComponent } from './sharepoint.component';
+import { MailComponent } from './mail.component';
 
 // Route Configuration
 export const routes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'sharepoint', component: SharePointComponent }
+  { path: 'sharepoint', component: SharePointComponent },
+  { path: 'mail', component: MailComponent }
 ];
 
 // Deprecated provide
