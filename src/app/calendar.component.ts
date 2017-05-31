@@ -73,13 +73,11 @@ export class CalendarComponent  {
     }
 
     getEvents() {
-        this._msalService.getToken().then((accessToken: any) => {
-                this._calendarService.getCalendarEvents(accessToken).forEach( res => {
+                this._calendarService.getCalendarEvents(localStorage.getItem('accessToken')).forEach( res => {
                     this.anyCalendarEvent = true;
                     console.log(res.json());
                     this.events = res.json().value;
                 });
-            });
     }
 
     createEvent() {

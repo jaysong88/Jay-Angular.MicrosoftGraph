@@ -13,6 +13,7 @@ import {Router, RouterLink} from '@angular/router';
               <a class="mdl-navigation__link" [routerLink]="['/user']">Users</a>
               <a class="mdl-navigation__link" [routerLink]="['/calendar']">Calendars</a>
               <a class="mdl-navigation__link" [routerLink]="['/contact']">Contacts</a>
+              <a class="mdl-navigation__link" [routerLink]="['/sharepoint']">SharePoint</a>
             </nav>
         </div>
 

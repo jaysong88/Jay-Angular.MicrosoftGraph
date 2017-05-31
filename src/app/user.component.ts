@@ -84,11 +84,6 @@ export class UserComponent {
         this._msalService.login();
     }
 
-    /*
-        Tenant Name: SPE178564
-        Username: admin@SPE178564.onmicrosoft.com Password: jay.song@1988 
-    */
-
     getUserInformation() {
         this._userService.getCurrentUserInformaion(this.accessToken).subscribe(res => {
                     this.user = res.json();
@@ -138,9 +133,12 @@ export class UserComponent {
     }
 
     getAccessToken() {
+        this.accessToken = localStorage.getItem('accessToken');
+        /*
         this._msalService.getToken().then((accessToken: any) => {
                 this.accessToken = accessToken;
             });
+            */
     }
 
     toggleUser() {

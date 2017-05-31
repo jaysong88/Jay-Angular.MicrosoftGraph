@@ -7,20 +7,27 @@ declare const Msal: any;
 export class MSALService {
     private applicationConfig: any = {
         clientID: 'd33e6d35-a0a2-431b-9185-0d3e2b4148a0',
-        graphScopes: ['Directory.AccessAsUser.All', 'Calendars.ReadWrite.Shared', 'Contacts.ReadWrite']
+        graphScopes: ['Directory.AccessAsUser.All', 'Calendars.ReadWrite.Shared', 'Contacts.ReadWrite', 'Sites.ReadWrite.All']
     };
 
     private app: any;
 
     constructor() {
-
         this.app = new Msal.UserAgentApplication(this.applicationConfig.clientID, '', () => {
         });
     }
 
+        /*
+        Tenant Name: SPE178564
+        Username: admin@SPE178564.onmicrosoft.com Password: jay.song@1988 
+    */
+
     public login() {
         return this.app.loginPopup(this.applicationConfig.graphScopes)
             .then( (token: any) => {
+                this.getToken().then((accessToken: any) => {
+                    localStorage.setItem('accessToken', accessToken);
+                });
                 const user = this.app.getUser();
                 if (user) {
                     return user;
