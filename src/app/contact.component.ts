@@ -38,13 +38,12 @@ export class ContactComponent  {
     }
 
     getContacts() {
-        this._msalService.getToken().then((accessToken: any) => {
-                this._contactService.getAllContacts(accessToken).forEach( res => {
+                this._contactService.getAllContacts(localStorage.getItem('accessToken')).forEach( res => {
                     this.anyContact = true;
                     console.log(res.json());
                     this.contacts = res.json().value;
                 });
-            });
+        
     }
 
     creatContact() {
@@ -52,11 +51,9 @@ export class ContactComponent  {
         contact.givenName = 'Song';
         contact.surname = 'Jay';
         contact.mobilePhone = '0421810865';
-        this._msalService.getToken().then((accessToken: any) => {
-                this._contactService.createContact(accessToken, JSON.stringify(contact)).subscribe( res => {
+                this._contactService.createContact(localStorage.getItem('accessToken'), JSON.stringify(contact)).subscribe( res => {
                     console.log('contact is created successfully');
                 });
-            });
     }
 
 }

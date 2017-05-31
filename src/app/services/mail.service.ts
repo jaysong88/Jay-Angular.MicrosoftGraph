@@ -116,4 +116,17 @@ export class MailService {
                 { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' }) });
             }
     }
+
+    public sendEmail(accessToken: string, body: any, id?: string, userPrincipalName?: string) {
+            if ( id != null ) {
+                return this.http.post('https://graph.microsoft.com/v1.0/users/' + id + '/sendMail', body,
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' }) });
+            } else if ( userPrincipalName != null ) {
+                return this.http.post('https://graph.microsoft.com/v1.0/users/' + userPrincipalName + '/sendMail', body,
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' }) });
+            } else {
+                return this.http.post('https://graph.microsoft.com/v1.0/me/sendMail', body,
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' }) });
+            }
+    }
 }

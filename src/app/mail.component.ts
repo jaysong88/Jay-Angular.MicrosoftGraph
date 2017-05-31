@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Message, MailFolder } from './interfaces/mail.interface';
+import { Message, MailFolder, Mail } from './interfaces/mail.interface';
+import { Recipient } from './interfaces/calendar.interface';
 import { MSALService } from './services/msal.service';
 import { MailService } from './services/mail.service';
 
@@ -14,6 +15,7 @@ import { MailService } from './services/mail.service';
         <button (click)="createMessage()">Create Message</button>
         <button (click)="getAllMailFolders()">Get All Mail Folders</button>
         <button (click)="createMailFolder()">Create Mail Folder</button>
+        <button (click)="sendEmail()">Send Email</button>
     </div>
     <div *ngIf="anyMail">
         <div>
@@ -90,6 +92,26 @@ export class MailComponent  {
             });
     }
 
+    sendEmail() {
+        let mail: Mail = {} as Mail;
+        let message: Message = {} as Message;
+        message.body = {} as any;
+        message.toRecipients = [] as any;
+        let recipient = {} as Recipient;
+        recipient.emailAddress = {} as any;
+
+        message.subject = 'Email From Microsoft Graph';
+        message.body.contentType = 'html';
+        message.body.content = 'This is email is coming from Microsoft Graph API';
+        recipient.emailAddress.address = 'jay.song@oakton.com.au';
+        message.toRecipients.push(recipient);
+        mail.message = message;
+        this._mailService.sendEmail(localStorage.getItem('accessToken'), JSON.stringify(mail)).subscribe( res => {
+            console.log('Email is sent successfully');
+        }, (error: any) => {
+                console.log(error);
+            });
+    }
 
 }
 

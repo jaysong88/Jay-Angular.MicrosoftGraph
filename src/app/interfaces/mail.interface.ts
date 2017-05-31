@@ -45,3 +45,7 @@ export interface MailFolder {
     totalItemCount: number;
     unreadItemCount: number;
 }
+
+export interface Mail {
+    message: Message;
+}

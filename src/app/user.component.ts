@@ -76,20 +76,20 @@ export class UserComponent {
     }
 
     getUserInformation() {
-        this._userService.getCurrentUserInformaion(this.accessToken).subscribe(res => {
+        this._userService.getCurrentUserInformaion(localStorage.getItem('accessToken')).subscribe(res => {
                     this.user = res.json();
                     console.log(res.json());
                 });
     }
 
     getCurrentUserManager() {
-        this._userService.getCurrentUserManager(this.accessToken).subscribe(res => {
+        this._userService.getCurrentUserManager(localStorage.getItem('accessToken')).subscribe(res => {
                     this.manager = res.json();
                 });
     }
 
     getAllUsers() {
-        this._userService.getAllUsers(this.accessToken).forEach(res => {
+        this._userService.getAllUsers(localStorage.getItem('accessToken')).forEach(res => {
             this.users = res.json().value;
         });
     }
@@ -98,7 +98,7 @@ export class UserComponent {
         let newUser: User = { displayName: 'Jay Song', givenName: 'Song', surname: 'Jay',
         userPrincipalName: 'jay.song@SPE178564.onmicrosoft.com', accountEnabled: true,
         passwordProfile: { password: 'Sz1988518' }, mailNickname: 'JaySong' };
-        this._userService.createNewUser(this.accessToken, JSON.stringify(newUser)).subscribe(res => {
+        this._userService.createNewUser(localStorage.getItem('accessToken'), JSON.stringify(newUser)).subscribe(res => {
             if ( res.status == 201) {
                 console.log('User is created successfully');
                 console.log(res.json());
@@ -108,7 +108,7 @@ export class UserComponent {
 
     updateUser() {
         let updatedUser: UpdatedUserInformation = {city: 'Sydney', state: 'NSW', country: 'Australia', jobTitle: 'IT Developer'};
-        this._userService.updateUser(this.accessToken, JSON.stringify(updatedUser)).subscribe(res => {
+        this._userService.updateUser(localStorage.getItem('accessToken'), JSON.stringify(updatedUser)).subscribe(res => {
             if ( res.status == 204) {
                 console.log('User is updated successfully');
             }
@@ -116,7 +116,7 @@ export class UserComponent {
     }
 
     deleteUser() {
-        this._userService.deleteUser(this.accessToken, '52adb0c3-e65a-4dbe-a05f-87d12f044175').subscribe(res => {
+        this._userService.deleteUser(localStorage.getItem('accessToken'), '52adb0c3-e65a-4dbe-a05f-87d12f044175').subscribe(res => {
             if ( res.status == 204) {
                 console.log('User is deleted successfully');
             }

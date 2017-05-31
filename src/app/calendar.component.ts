@@ -93,22 +93,18 @@ export class CalendarComponent  {
                 attendee.emailAddress.name = 'Jay Song';
                 attendee.type = 'required';
                 event.attendees.push(attendee);
-        this._msalService.getToken().then((accessToken: any) => {
-                this._calendarService.createEvent(accessToken, JSON.stringify(event)).subscribe( respo => {
+                this._calendarService.createEvent(localStorage.getItem('accessToken'), JSON.stringify(event)).subscribe( respo => {
                     console.log('Event is created successfully');
                     console.log(respo.json());
                 });
-            });
     }
 
     getCalendars() {
-        this._msalService.getToken().then((accessToken: any) => {
-                this._calendarService.getCalendars(accessToken).forEach( res => {
+                this._calendarService.getCalendars(localStorage.getItem('accessToken')).forEach( res => {
                     this.anyCalendar = true;
                     console.log(res.json());
                     this.calenders = res.json().value;
                 });
-            });
     }
 
     createCalendar() {
@@ -116,22 +112,19 @@ export class CalendarComponent  {
         calendar.name = 'Jay\'s Calendar';
         calendar.color = 'auto';
         calendar.changeKey = 'randomValue';
-        this._msalService.getToken().then((accessToken: any) => {
-                this._calendarService.createCalendar(accessToken, JSON.stringify(calendar)).subscribe( res => {
+                this._calendarService.createCalendar(localStorage.getItem('accessToken'), JSON.stringify(calendar)).subscribe( res => {
                     console.log('Calendar is created successfully');
                     console.log(res.json());
                 });
-            });
     }
 
     getCalendarView() {
-        this._msalService.getToken().then((accessToken: any) => {
-                this._calendarService.getDefaultCalendarView(accessToken, '2017-01-01T19:00:00.0000000', '2017-10-01T19:00:00.0000000')
+                this._calendarService.getDefaultCalendarView(localStorage.getItem('accessToken'),
+                 '2017-01-01T19:00:00.0000000', '2017-10-01T19:00:00.0000000')
                 .forEach( res => {
                     this.anyCalendarView = true;
                     console.log(res.json());
                     this.calendarViews = res.json().value;
-                });
             });
     }
 
@@ -148,12 +141,11 @@ export class CalendarComponent  {
                 meetingRequest.returnSuggestionReasons = true;
                 meetingRequest.minimumAttendeePercentage = 100;
                 meetingRequest.attendees.push(attendee);
-           this._msalService.getToken().then((accessToken: any) => {
-                this._calendarService.findMeetingTimes(accessToken, JSON.stringify(meetingRequest)).subscribe( res => {
+                this._calendarService.findMeetingTimes(localStorage.getItem('accessToken'),
+                    JSON.stringify(meetingRequest)).subscribe( res => {
                     console.log('Find meeting times successfully');
                     console.log(res.json());
                 });
-            });
     }
 }
 
