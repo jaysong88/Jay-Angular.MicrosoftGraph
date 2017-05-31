@@ -1,13 +1,14 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent }  from './app.component';
 import { UserComponent } from './user.component';
 import { CalendarComponent } from './calendar.component';
+import { ContactComponent } from './contact.component';
 
 // Route Configuration
 export const routes: Routes = [
   { path: 'user', component: UserComponent },
-  { path: 'calendar', component: CalendarComponent }
+  { path: 'calendar', component: CalendarComponent },
+  { path: 'contact', component: ContactComponent }
 ];
 
 // Deprecated provide

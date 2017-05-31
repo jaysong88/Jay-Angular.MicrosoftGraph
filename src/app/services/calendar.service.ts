@@ -7,8 +7,6 @@ export class CalendarService {
     constructor(private http: Http) {
     }
 
-    /*    Microsoft Graph Calendar   */
-
     public getAllEvents(accessToken: string, id?: string, userPrincipalName?: string) {
             if ( id != null ) {
                 return this.http.get('https://graph.microsoft.com/v1.0/users/' + id + '/events',
@@ -269,5 +267,4 @@ export class CalendarService {
             }
     }
 
-    /*    END -- Microsoft Graph Calendar      */
 }

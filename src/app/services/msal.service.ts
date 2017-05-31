@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
 
 declare const Msal: any;
 
@@ -8,12 +7,12 @@ declare const Msal: any;
 export class MSALService {
     private applicationConfig: any = {
         clientID: 'd33e6d35-a0a2-431b-9185-0d3e2b4148a0',
-        graphScopes: ['Directory.AccessAsUser.All', 'Calendars.ReadWrite', 'Calendars.ReadWrite.Shared']
+        graphScopes: ['Directory.AccessAsUser.All', 'Calendars.ReadWrite.Shared', 'Contacts.ReadWrite']
     };
 
     private app: any;
 
-    constructor(private http: Http) {
+    constructor() {
 
         this.app = new Msal.UserAgentApplication(this.applicationConfig.clientID, '', () => {
         });
