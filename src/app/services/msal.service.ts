@@ -7,7 +7,7 @@ declare const Msal: any;
 export class MSALService {
     private applicationConfig: any = {
         clientID: 'd33e6d35-a0a2-431b-9185-0d3e2b4148a0',
-        graphScopes: ['Directory.AccessAsUser.All', 
+        graphScopes: ['Directory.AccessAsUser.All', 'Directory.Read.All',
         'Calendars.ReadWrite.Shared', 'Contacts.ReadWrite', 'Sites.ReadWrite.All', 'Mail.ReadWrite', 'Mail.Send']
     };
 

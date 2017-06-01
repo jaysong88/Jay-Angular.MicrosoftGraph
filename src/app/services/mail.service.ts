@@ -129,4 +129,70 @@ export class MailService {
                 { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' }) });
             }
     }
+
+    public getMailBoxSettings(accessToken: string, id?: string, userPrincipalName?: string) {
+            if ( id != null ) {
+                return this.http.get('https://graph.microsoft.com/v1.0/users/' + id + '/mailboxSettings',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            } else if ( userPrincipalName != null ) {
+                return this.http.get('https://graph.microsoft.com/v1.0/users/' + userPrincipalName + '/mailboxSettings',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            } else {
+                return this.http.get('https://graph.microsoft.com/v1.0/me/mailboxSettings',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            }
+    }
+
+    public getAutoReplySettings(accessToken: string, id?: string, userPrincipalName?: string) {
+            if ( id != null ) {
+                return this.http.get('https://graph.microsoft.com/v1.0/users/' + id + '/mailboxSettings/automaticRepliesSetting',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            } else if ( userPrincipalName != null ) {
+                return this.http.get('https://graph.microsoft.com/v1.0/users/' + userPrincipalName +
+                 '/mailboxSettings/automaticRepliesSetting',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            } else {
+                return this.http.get('https://graph.microsoft.com/v1.0/me/mailboxSettings/automaticRepliesSetting',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            }
+    }
+
+    public getMailBoxLanguage(accessToken: string, id?: string, userPrincipalName?: string) {
+            if ( id != null ) {
+                return this.http.get('https://graph.microsoft.com/v1.0/users/' + id + '/mailboxSettings/language',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            } else if ( userPrincipalName != null ) {
+                return this.http.get('https://graph.microsoft.com/v1.0/users/' + userPrincipalName + '/mailboxSettings/language',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            } else {
+                return this.http.get('https://graph.microsoft.com/v1.0/me/mailboxSettings/language',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            }
+    }
+
+    public getMailBoxTimeZone(accessToken: string, id?: string, userPrincipalName?: string) {
+            if ( id != null ) {
+                return this.http.get('https://graph.microsoft.com/v1.0/users/' + id + '/mailboxSettings/timeZone',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            } else if ( userPrincipalName != null ) {
+                return this.http.get('https://graph.microsoft.com/v1.0/users/' + userPrincipalName + '/mailboxSettings/timeZone',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            } else {
+                return this.http.get('https://graph.microsoft.com/v1.0/me/mailboxSettings/timeZone',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }) });
+            }
+    }
+
+    public updateMailboxSettings(accessToken: string, body: any, id?: string, userPrincipalName?: string) {
+            if ( id != null ) {
+                return this.http.post('https://graph.microsoft.com/v1.0/users/' + id + '/mailboxSettings', body,
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' }) });
+            } else if ( userPrincipalName != null ) {
+                return this.http.post('https://graph.microsoft.com/v1.0/users/' + userPrincipalName + '/mailboxSettings', body,
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' }) });
+            } else {
+                return this.http.post('https://graph.microsoft.com/v1.0/me/mailboxSettings', body,
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' }) });
+            }
+    }
 }

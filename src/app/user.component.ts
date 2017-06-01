@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
 import { User, UpdatedUserInformation } from './interfaces/user.interface';
+import { SchemaExtension, ExtensionSchemaProperty } from './interfaces/schemaextension.interface';
 import { UserService } from './services/user.service';
 import { KurveService } from './services/kurve.service';
 import { MSALService } from './services/msal.service';
+import { SchemaExtensionService } from './services/schema.extension.service';
 
 @Component({
     selector : 'my-user',
-    providers : [KurveService, UserService, MSALService],
+    providers : [KurveService, UserService, MSALService, SchemaExtensionService],
     template : `
     <h1>{{ Name }}</h1>
     <button (click)="login()">Login</button>
     <button (click)="getAccessToken()">Get Token</button>
+    <button (click)="getAllSchemaExtensions()">Get Schema Extensions</button>
+    <button (click)="createSchema()">Create Schema</button>
     <button (click)="toggleUser()">{{ anyUser ? 'Hide User Informaton' : 'Show User Information' }}</button>
     <div *ngIf="anyUser">
         <button (click)="getUserInformation()">Get User Information</button>
@@ -52,6 +56,20 @@ import { MSALService } from './services/msal.service';
             </ul>
         </div>
     </div>
+    <div>
+            <h3>Schema Extensions</h3>
+            <ul *ngFor="let schema of schemas">
+                <li>ID: {{ schema.id}} </li>
+                <li>Description: {{ schema.description}} </li>
+                <li>Target Type: {{ schema.targetTypes}} </li>
+                <li>
+                    <ul *ngFor="let property of schema.properties">
+                        <li>Name: {{ property.name }}</li>
+                        <li>Type: {{ property.type }}</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     `,
     styleUrls: [ './styles/main.css' ]
 })
@@ -66,8 +84,10 @@ export class UserComponent {
     passwordProfile: { password: 'Sz1988518' }, mailNickname: '' };
     manager: User = {displayName: '', givenName: '', surname: '', userPrincipalName: '', accountEnabled: true,
     passwordProfile: { password: 'Sz1988518' }, mailNickname: '' };
+    schemas: SchemaExtension[];
 
-    constructor(private _kurveService: KurveService, private _userService: UserService, private _msalService: MSALService) {
+    constructor(private _kurveService: KurveService, private _userService: UserService,
+            private _msalService: MSALService, private _schemaExtensionService: SchemaExtensionService) {
 
     }
 
@@ -130,6 +150,36 @@ export class UserComponent {
                 this.accessToken = accessToken;
             });
             */
+    }
+
+    getAllSchemaExtensions () {
+        this._schemaExtensionService.getAllSchemaExtensions(localStorage.getItem('accessToken')).forEach(res => {
+            this.schemas = res.json().value;
+        });
+    }
+
+    createSchema() {
+        let schema: SchemaExtension = {} as SchemaExtension;
+        let property1: ExtensionSchemaProperty = {} as ExtensionSchemaProperty;
+        let property2: ExtensionSchemaProperty = {} as ExtensionSchemaProperty;
+        schema.targetTypes = [] as string[];
+        schema.properties = [] as ExtensionSchemaProperty[];
+
+        schema.id = 'Demo';
+        schema.description = 'User Scheme Extension Demo';
+        schema.targetTypes.push('User');
+        property1.name = 'previousAddress';
+        property1.type = 'String';
+        property2.name = 'nationality';
+        property2.type = 'String';
+        schema.properties.push(property1);
+        schema.properties.push(property2);
+        this._schemaExtensionService.createNewExtension(localStorage.getItem('accessToken'), JSON.stringify(schema)).subscribe(res => {
+            if ( res.status == 201) {
+                console.log('User is created successfully');
+                console.log(res.json());
+            }
+        });
     }
 
     toggleUser() {

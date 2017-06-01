@@ -35,4 +35,28 @@ export class SharePointService {
             });
     }
 
+    getSharePointList(accessToken: string, siteId: string, listId: string) {
+            return this.http.get('https://graph.microsoft.com/beta/sites/' + siteId + '/lists/' + listId,
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken })
+            });
+    }
+
+    getSharePointListItems(accessToken: string, siteId: string, listId: string) {
+            return this.http.get('https://graph.microsoft.com/beta/sites/' + siteId + '/lists/' + listId + '/items',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken })
+            });
+    }
+
+    createSharePointList(accessToken: string, body: any, siteId: string) {
+            return this.http.post('https://graph.microsoft.com/beta/sites/' + siteId + '/lists/', body, 
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken })
+            });
+    }
+
+    getSharePointListItem(accessToken: string, siteId: string, listId: string, itemId: string) {
+            return this.http.get('https://graph.microsoft.com/beta/sites/' + siteId + '/lists/' + listId + '/items',
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken })
+            });
+    }
+
 }

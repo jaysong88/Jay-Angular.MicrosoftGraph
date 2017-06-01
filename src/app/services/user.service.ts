@@ -44,5 +44,11 @@ export class UserService {
             }
     }
 
+    public createNewSchema(accessToken: string, body: any) {
+            return this.http.post('https://graph.microsoft.com/v1.0/schemaExtensions', body,
+                { headers: new Headers({ 'Authorization': 'Bearer ' + accessToken , 'Content-Type': 'application/json' }) });
+    }
+
+
     /*   END -- Microsoft Graph Users    */
 }

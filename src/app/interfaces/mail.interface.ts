@@ -1,4 +1,4 @@
-import { Recipient ,  ItemBody, EmailAddress } from './calendar.interface';
+import { Recipient, ItemBody, EmailAddress, DateTimeTimeZone } from './calendar.interface';
 
 export interface Message {
     bccRecipients: Recipient[];
@@ -49,3 +49,25 @@ export interface MailFolder {
 export interface Mail {
     message: Message;
 }
+
+export interface LocaleInfo {
+    locale?: string;
+    displayName?: string;
+}
+
+export interface AutomaticRepliesSetting {
+    externalAudience: string;
+    externalReplyMessage: string;
+    internalReplyMessage: string;
+    scheduledEndDateTime: DateTimeTimeZone;
+    scheduledStartDateTime: DateTimeTimeZone;
+    status: string;
+}
+
+export interface MailboxSettings {
+    automaticRepliesSetting: AutomaticRepliesSetting;
+    language: LocaleInfo;
+    timeZone: string;
+}
+
+

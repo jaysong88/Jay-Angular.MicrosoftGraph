@@ -6,6 +6,7 @@ export interface User {
     userPrincipalName: string;
     passwordProfile: PasswordProfile;
     mailNickname: string;
+
 }
 
 export interface PasswordProfile {
